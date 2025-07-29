@@ -20,6 +20,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    bio: {
+        type: String,
+        default: ""
+    },
+    college: {
+        type: String,
+        default: ""
+    },
+    fieldOfStudy: {
+        type: String,
+        default: ""
+    },
     isOnboarded: {
         type: Boolean,
         default: false
