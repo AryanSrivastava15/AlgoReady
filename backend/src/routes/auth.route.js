@@ -10,6 +10,10 @@ router.post("/logout", logout);
 
 router.post("/onboarding", protectRoute, onboard);
 
+// Can add:
+// forget-password route
+// reset-password route
+
 router.get("/me", protectRoute, (req, res) =>{
     res.status(200).json({ success: true, user: req.user });
 })
