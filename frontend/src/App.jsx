@@ -17,15 +17,16 @@ const App = () => {
   // Add Axios in
   // tanstack query
   // delete => post put delete
-  const {data, isLoading, error} = useQuery({queryKey:["todos"],
+  const {data, isLoading, error} = useQuery({
+    queryKey:["authUser"],
     queryFn: async() => {
       // const res = await fetch("https://jsonplaceholder.typicode.com/todos");
       // const data = await res.json();
       // return data;
-      const res = await axiosInstance.get("http://localhost:5001/api/auth/me");
+      const res = await axiosInstance.get("/auth/me");
       return res.data;
     },
-    retry: false,
+    retry: false, // auth check
   })
 
   console.log(data);
