@@ -3,17 +3,23 @@ import {ShipWheelIcon} from 'lucide-react'
 import {Link} from 'react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signup } from '../lib/api';
+import useSignup from '../hooks/useSignup';
 const SignUpPage = () => {
   const [signupData, setSignupData] = useState({
     fullName: "",
     email: "",
     password: "",
   });
-  const queryClient = useQueryClient()
-  const {mutate: signupMutation, isPending, error} = useMutation({
-    mutationFn: signup,
-    onSuccess:() => queryClient.invalidateQueries({queryKey:["authUser"]}),
-  })
+
+  // This is how we did it first, without using our custom hook
+  // const queryClient = useQueryClient()
+  // const {mutate: signupMutation, isPending, error} = useMutation({
+  //   mutationFn: signup,
+  //   onSuccess:() => queryClient.invalidateQueries({queryKey:["authUser"]}),
+  // })
+  
+  //This is how we did it using our custom hook - optimized version
+  const {error, isPending, signupMutation} = useSignup();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -42,7 +48,7 @@ const SignUpPage = () => {
                 <div>
                   <h2 className='text-xl font-semibold'> Create an Account</h2>
                   <p>
-                    Join Streamify and move forward in your learning adventure!
+                    Join AlgoReady and move forward in your learning adventure!
                   </p>
                 </div>
                 <div className='space-y-3'>
