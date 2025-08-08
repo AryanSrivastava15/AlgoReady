@@ -10,6 +10,7 @@ import OnboardingPage from "./pages/OnboardingPage.jsx"
 import { Toaster } from 'react-hot-toast'
 import PageLoader from './components/PageLoader.jsx'
 import useAuthUser from './hooks/useAuthUser.js'
+import Layout from "./components/Layout.jsx"
 
 const App = () => {
   // Add Axios in
@@ -23,10 +24,12 @@ const App = () => {
   if(isLoading) return <PageLoader />
 
   return (
-    <div className='h-screen' data-theme="night">
+    <div className='h-screen' data-theme="forest">
       <Routes>
         <Route path="/" element={isAuthenticated && isOnboarded ? (
-          <HomePage />
+          <Layout showSidebar={true}>
+            <HomePage />
+          </Layout>
         ) : (
           <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
         )} />
@@ -42,7 +45,7 @@ const App = () => {
             !isAuthenticated ? <LoginPage /> : <Navigate to = {isOnboarded ? "/" : "/onboarding"} />
           } 
         />
-        <Route path="/notifications" element={isAuthenticated ? <NotificationPage /> : <Navigate to = "/login"/>} />
+        <Route path="/notifications" element={isAuthenticated ? <Layout showSidebar={true}><NotificationPage /></Layout> : <Navigate to = "/login"/>} />
         <Route path="/call" element={isAuthenticated ? <CallPage /> : <Navigate to = "/login"/>} />
         <Route path="/chat" element={isAuthenticated ? <ChatPage /> : <Navigate to = "/login"/>} />
         <Route path="/onboarding" element={isAuthenticated ? (

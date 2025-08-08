@@ -10,12 +10,22 @@ export const login = async (loginData) => {
   return response.data;
 }
 
+export const logout = async () => {
+    const response = await axiosInstance.post("/auth/logout");
+  return response.data;
+}
+
 export const getAuthUser = async() => {
   // const res = await fetch("https://jsonplaceholder.typicode.com/todos");
   // const data = await res.json();
   // return data;
-  const res = await axiosInstance.get("/auth/me");
-  return res.data;
+  try {
+    const res = await axiosInstance.get("/auth/me");
+    return res.data;
+  } catch (error) {
+    console.log("Error in getAuthUser: ", error)
+    return null;
+  }
 }
 
 export const completeOnboarding = async (userData) => {
